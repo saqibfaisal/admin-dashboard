@@ -6,6 +6,7 @@ import Button from "../component/button";
 import Select from "../component/select";
 import Input from "../component/input";
 import { sendData } from "../config/firebasemethod";
+import Navber from "../component/navber";
 function RegistrationForm() {
   const [model, setmodel] = useState({});
   let fillmodel = (key, val) => {
@@ -36,6 +37,8 @@ function RegistrationForm() {
   };
   return (
     <div className="regis box">
+      <Navber/>
+      <div style={{display:"flex" , alignItems:"center", justifyContent:"center"}}>
       <Box sx={{ width: "50%", pt: 2 }}>
         <Box sx={{ border: "2px solid white", borderRadius: "25px", p: 3 }}>
           <Typography color="inherit" variant="h4">
@@ -185,6 +188,7 @@ function RegistrationForm() {
           </Grid>
         </Box>
       </Box>
+      </div>
     </div>
   );
 }

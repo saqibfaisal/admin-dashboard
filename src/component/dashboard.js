@@ -19,8 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import ForumIcon from "@mui/icons-material/Forum";
-import MapsUgcIcon from "@mui/icons-material/MapsUgc";
+import QuizIcon from '@mui/icons-material/Quiz';
 import HomeIcon from "@mui/icons-material/Home";
 import DetailsIcon from '@mui/icons-material/Details';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
@@ -146,7 +145,7 @@ function Dashboard(props) {
             <Typography variant="h4" noWrap component="div">
           {heading}
             </Typography>
-            <Box>
+            {/* <Box>
               {auth && (
                 <div>
                   <IconButton
@@ -191,7 +190,7 @@ function Dashboard(props) {
                   </Menu>
                 </div>
               )}
-            </Box>
+            </Box> */}
           </Toolbar>
         </AppBar>
         <Box>
@@ -272,7 +271,7 @@ function Dashboard(props) {
               </ListItem>
               <ListItem
                 onClick={() => {
-                  navigate("feedback");
+                  navigate("/adminquiz");
                 }}
                 disablePadding
                 className="sideBtns"
@@ -292,10 +291,40 @@ function Dashboard(props) {
                       justifyContent: "center",
                     }}
                   >
-                    <MapsUgcIcon color="primary" />
+                    <QuizIcon color="primary" />
                   </ListItemIcon>
                   <ListItemText
-                    primary="Feedback"
+                    primary="Quiz"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+              <ListItem
+                onClick={() => {
+                  navigate("/adminregisuser");
+                }}
+                disablePadding
+                className="sideBtns"
+                sx={{ display: "block" }}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <AccountCircle color="primary" />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Register User"
                     sx={{ opacity: open ? 1 : 0 }}
                   />
                 </ListItemButton>
