@@ -1,21 +1,22 @@
-import {
-  CircularProgress,
-  Typography,
-} from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import CSDataGrid from "../../component/datagrid";
 import { getData } from "../../config/firebasemethod";
 import "../../App.css";
 import Dashboard from "../../component/dashboard";
+import { useNavigate, useParams } from "react-router-dom";
 
 function RegisUser() {
   const [data, setData] = useState([]);
+  // const [fullpageloader, setfullpageloader] = useState(false);
+  const params = useParams();
+  const navigate = useNavigate();
   const columns = [
     {
       field: "id",
       headerName: "ID",
-      width: 100,
+      width: 200,
       heeaderClassName: "tabel-header",
     },
     {
@@ -41,8 +42,23 @@ function RegisUser() {
       editable: true,
     },
     {
+      field: "contactnumber",
+      headerName: "ContactNumber",
+      width: 130,
+      type: "number",
+      heeaderClassName: "tabel-header",
+      editable: true,
+    },
+    {
       field: "email",
       headerName: "Email",
+      width: 180,
+      heeaderClassName: "tabel-header",
+      editable: true,
+    },
+    {
+      field: "registrationyear",
+      headerName: "Registration Year",
       width: 180,
       heeaderClassName: "tabel-header",
       editable: true,
@@ -61,8 +77,8 @@ function RegisUser() {
   }, []);
   return (
     <div className="box">
-      <Dashboard />
-      <Box sx={{ width: "50%", mt: 5 }}>
+      <Dashboard heading={"Institute"} />
+      <Box sx={{ width: "80%", mt: 5 }}>
         <Typography align="center" variant="h4">
           RegisUser
         </Typography>

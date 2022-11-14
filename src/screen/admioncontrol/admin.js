@@ -41,7 +41,7 @@ function Admin() {
                 label="UserName"
                 required={true}
                 value={model.username}
-                onChange={(e) => fillmodel("username", e.target.value)}
+                onChange={(e) => fillmodel("usernaem", e.target.value)}
               />
             </Grid>
             <Grid item md={12}>

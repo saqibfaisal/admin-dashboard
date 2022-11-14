@@ -55,7 +55,7 @@ function AdminQuiz() {
   };
   return (
     <div className="adminbg box">
-      <Dashboard />
+      <Dashboard   heading={"Institute"}/>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Box sx={{ p: 2, width: "50%" }}>
           <Box

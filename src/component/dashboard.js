@@ -7,7 +7,6 @@ import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -17,13 +16,12 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import QuizIcon from '@mui/icons-material/Quiz';
-import HomeIcon from "@mui/icons-material/Home";
-import DetailsIcon from '@mui/icons-material/Details';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-
+import QuizIcon from "@mui/icons-material/Quiz";
+import FlagIcon from '@mui/icons-material/Flag';
+import DetailsIcon from "@mui/icons-material/Details";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import ApartmentIcon from '@mui/icons-material/Apartment';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -94,7 +92,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 function Dashboard(props) {
-  const { workarea ,heading } = props;
+  const { workarea, heading } = props;
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [auth, setAuth] = React.useState(true);
@@ -143,7 +141,7 @@ function Dashboard(props) {
               <MenuIcon fontSize="large" />
             </IconButton>
             <Typography variant="h4" noWrap component="div">
-          {heading}
+              {heading}
             </Typography>
             {/* <Box>
               {auth && (
@@ -293,10 +291,7 @@ function Dashboard(props) {
                   >
                     <QuizIcon color="primary" />
                   </ListItemIcon>
-                  <ListItemText
-                    primary="Quiz"
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
+                  <ListItemText primary="Quiz" sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
               </ListItem>
               <ListItem
@@ -329,8 +324,98 @@ function Dashboard(props) {
                   />
                 </ListItemButton>
               </ListItem>
-              <Divider sx={{ backgroundColor: "#0277bd" }} />
               <ListItem
+                onClick={() => {
+                  navigate("/createresult");
+                }}
+                disablePadding
+                className="sideBtns"
+                sx={{ display: "block" }}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <AssignmentIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="createresult"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+              <ListItem
+                onClick={() => {
+                  navigate("/country");
+                }}
+                disablePadding
+                className="sideBtns"
+                sx={{ display: "block" }}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <FlagIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Country"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+              <ListItem
+                onClick={() => {
+                  navigate("/city");
+                }}
+                disablePadding
+                className="sideBtns"
+                sx={{ display: "block" }}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <ApartmentIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="City"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+              {/* <Divider sx={{ backgroundColor: "#0277bd" }} /> */}
+              {/* <ListItem
                 onClick={() => {
                   navigate("/");
                 }}
@@ -356,7 +441,7 @@ function Dashboard(props) {
                   </ListItemIcon>
                   <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
-              </ListItem>
+              </ListItem> */}
             </List>
           </Drawer>
         </Box>
@@ -365,7 +450,6 @@ function Dashboard(props) {
           sx={{
             flexGrow: 1,
             pt: 9,
-
           }}
         >
           {workarea}

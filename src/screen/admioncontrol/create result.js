@@ -1,187 +1,162 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Button from "../../component/button";
+import Dashboard from "../../component/dashboard";
+import DropDown from "../../component/dropdonw";
 import Select from "../../component/select";
 import Switch from "../../component/switch";
 import { getData, sendData } from "../../config/firebasemethod";
 
-function CreateResult() {
+function AdminResult() {
   const [model, setModel] = useState({});
-  const [courceStatus, setCourceStatus] = useState(false);
-  const [resultData, setResultData] = useState([
+  const [coursestatus, setcoursestatus] = useState(false);
+  const [resultData, setresultData] = useState([
     {
-      name: "ABC",
-      marks: 80,
-      rollNum: "ABC100",
+      name: "saqib",
+      marks: 82,
+      rollno: 1,
       result: "Pass",
     },
     {
-      name: "ABC",
-      marks: 80,
-      rollNum: "ABC101",
+      name: "sattar",
+      marks: 92,
+      rollno: 12,
       result: "Pass",
     },
     {
-      name: "ABC",
-      marks: 80,
-      rollNum: "ABC102",
+      name: "Anas",
+      marks: 76,
+      rollno: 3,
       result: "Pass",
     },
     {
-      name: "ABC",
-      marks: 80,
-      rollNum: "ABC103",
+      name: "ammar",
+      marks: 35,
+      rollno: 4,
+      result: "fail",
+    },
+    {
+      name: "ahtisham",
+      marks: 40,
+      rollno: 5,
+      result: "Fail",
+    },
+    {
+      name: "izhan",
+      marks: 65,
+      rollno: 140,
       result: "Pass",
     },
     {
-      name: "ABC",
-      marks: 80,
-      rollNum: "ABC104",
-      result: "Pass",
-    },
-    {
-      name: "ABC",
-      marks: 80,
-      rollNum: "ABC105",
-      result: "Pass",
-    },
-    {
-      name: "ABC",
-      marks: 80,
-      rollNum: "ABC106",
-      result: "Pass",
-    },
-    {
-      name: "ABC",
-      marks: 80,
-      rollNum: "ABC107",
-      result: "Pass",
-    },
-    {
-      name: "ABC",
-      marks: 80,
-      rollNum: "ABC108",
-      result: "Pass",
-    },
-    {
-      name: "ABC",
-      marks: 80,
-      rollNum: "ABC109",
+      name: "Rafay",
+      marks: 75,
+      rollno: 141,
       result: "Pass",
     },
   ]);
-  const [resultTableData, setResultTableData] = useState([]);
-
-  let submitForm = () => {
-    model.isShowResult = courceStatus;
+  let submitform = () => {
+    model.isShowResult = coursestatus;
     model.result = resultData;
     console.log(model);
-    sendData(model, "results")
-      .then((res) => {
-        console.log(res);
+    sendData(model, "Results/")
+      .then((success) => {
+        console.log(success);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  let getResultData = () => {
-    getData("results")
-      .then((res) => {
-        console.log(res);
-        setResultTableData(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    getResultData();
-  }, []);
-
   return (
-    <>
-      <h1>Create Result</h1>
-      <Box sx={{ padding: 2 }}>
-        <Grid container>
-          <Grid md={6} item>
-            <Switch
-              value={courceStatus}
-              onChange={(e) => setCourceStatus(e.target.checked)}
-              label="Cource"
-            />
-          </Grid>
-          <Grid md={6} item>
-            <Select
-              label="Cource"
-              onChange={(e) => setModel({ ...model, cource: e.target.value })}
-              datasource={[
-                {
-                  id: "wm",
-                  fullName: "Web And Mobile",
-                },
-                {
-                  id: "gd",
-                  fullName: "Graphics Designing",
-                },
-              ]}
-            />
-          </Grid>
-          <Grid item md={12}>
-            <Box>
-              <table>
-                {resultData.map((x, i) => (
-                  <tr>
-                    <td>{x.name}</td>
-                    <td>{x.rollNum}</td>
-                    <td>{x.result}</td>
-                    <td>{x.marks}</td>
-                  </tr>
-                ))}
-              </table>
-            </Box>
-          </Grid>
-          <Grid md={6} item>
-            <Button label="Submit" onClick={submitForm} />
-          </Grid>
-        </Grid>
-        <Box>
-          <table>
-            {resultTableData.map((x, i) => (
-              <tr>
-                <td>{x.result.length}</td>
-                <td>
-                  <Select
-                    valuefield="id"
-                    displayField="fullName"
-                    value={x.cource}
+    <div>
+      <Dashboard heading={"Institute"} />
+      <div style={{width:"100%",display:"flex",justifyContent:"center",alignItems:"center" ,marginTop:"60px"}}>
+        <Paper>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Typography variant="h4"m="20px">Create Result</Typography>
+            <Box sx={{ p: 2 ,display:"flex",justifyContent:"center",alignContent:"center" ,p:"10px"}}>
+              <Grid container>
+                <Grid md={4} item>
+                  <Switch
+                    value={coursestatus}
+                    label={"courses"}
+                    onChange={(e) => setcoursestatus(e.target.checked)}
+                  />
+                </Grid>
+                <Grid md={8} item>
+                  <DropDown
+                    onChange={(e) =>
+                      setModel({ ...model, course: e.target.value })
+                    }
+                    label={"Courses"}
+                    fullWidth
                     datasource={[
                       {
-                        id: "wm",
-                        fullName: "Web And Mobile",
+                        id: "Web And Mobile Application",
+                        displayname: "Web And Mobile Application",
                       },
                       {
-                        id: "gd",
-                        fullName: "Graphics Designing",
+                        id: "Graphics Designing",
+                        displayname: "Graphics Designing",
+                      },
+                      {
+                        id: "Freelancing",
+                        displayname: "Freelancing",
+                      },
+                      {
+                        id: "Hacking",
+                        displayname: "Hacking",
+                      },
+                      {
+                        id: "Flutter",
+                        displayname: "Flutter",
+                      },
+                      {
+                        id: "Python",
+                        displayname: "Python",
                       },
                     ]}
-                  />{" "}
-                </td>
-                <td>
-                  <Switch
-                    onChange={(e) => {
-                      resultTableData[i].isShowResult = e.target.checked;
-                    }}
-                    value={x.isShowResult}
                   />
-                </td>
-              </tr>
-            ))}
-          </table>
-        </Box>
-      </Box>
-    </>
+                </Grid>
+                <Grid >
+                  <Box>
+                    <table>
+                      <tr>
+                        <th>Name
+
+                        </th>
+                        <th>RollNo</th>
+                        <th>Result</th>
+                        <th>marks</th>
+                      </tr>
+                      {resultData.map((x, i) => (
+                        <tr>
+                          <td>{x.name}</td>
+                          <td>{x.rollno}</td>
+                          <td>{x.result}</td>
+                          <td>{x.marks}</td>
+                        </tr>
+                      ))}
+                    </table>
+                  </Box>
+                </Grid>
+                <Grid md={12} item>
+                  <Button label={"Submit"} onClick={submitform} color={"primary"}/>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Paper>
+      </div>
+    </div>
   );
 }
-export default CreateResult;
+
+export default AdminResult;
