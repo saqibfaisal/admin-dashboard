@@ -1,137 +1,123 @@
-import { Box, CircularProgress, Grid, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CircularProgress,
+  Grid,
+  Paper,
+  Typography,
+} from "@mui/material";
+import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import "../App.css";
+import DataGrid from "../component/datagrid";
 import DropDown from "../component/dropdonw";
-import Switch from "../component/switch";
-import Button from "../component/button";
-import { sendData } from "../config/firebasemethod";
+import Input from "../component/input";
+import Navbar from "../component/navber";
+import { getData } from "../config/firebasemethod";
 
-function AdminResult() {
-  const [model, setModel] = useState({});
-  const [coursestatus, setcoursestatus] = useState(false);
-  const [resultData, setresultData] = useState([
-    {
-      name: "Abbas",
-      marks: 75,
-      rollno: 135,
-      result: "Pass",
-    },
-    {
-      name: "ALi",
-      marks: 35,
-      rollno: 136,
-      result: "fail",
-    },
-    {
-      name: "Sohail",
-      marks: 85,
-      rollno: 137,
-      result: "Pass",
-    },
-    {
-      name: "Abuzar",
-      marks: 80,
-      rollno: 138,
-      result: "Pass",
-    },
-    {
-      name: "Akram",
-      marks: 40,
-      rollno: 139,
-      result: "Fail",
-    },
-    {
-      name: "Kamran",
-      marks: 65,
-      rollno: 140,
-      result: "Pass",
-    },
-    {
-      name: "Rafay",
-      marks: 75,
-      rollno: 141,
-      result: "Pass",
-    },
-  ]);
-  let submitform = () => {
-    model.isShowResult = coursestatus;
-    model.result = resultData;
-    console.log(model);
-    sendData(model, "Results/")
-      .then((success) => {
-        console.log(success);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+function Result() {
+  const [data, setData] = useState([]);
+  const [fullpageloader, setfullpageloader] = useState(false);
+  const [selectedCource, setSelectedCource] = useState("");
+  const [resultTableData, setResultTableData] = useState([]);
+  let getResults = () => {
+    getData("Results")
+    .then((res) => {
+      let arr = res.filter((x) => x.isShowResult);
+      console.log(arr);
+      setData([...arr]);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+  useEffect(() => {
+    getResults()
+  }, []);
+  let showResult = (e) => {
+    setSelectedCource(e);
+    let obj = data.find((x) => x.course == e);
+    console.log(obj);
+    setResultTableData([...obj.result]);
   };
-  return (
-    <div className="">
-      <Box sx={{ width: "100%" }}>
-        <Typography variant="h4">Create Result</Typography>
-        <Box sx={{ p: 2 }}>
-          <Grid container>
-            <Grid md={4} item>
-              <Switch
-                value={coursestatus}
-                label={"courses"}
-                onChange={(e) => setcoursestatus(e.target.checked)}
-              />
-            </Grid>
-            <Grid md={8} item>
-              <DropDown
-                onChange={(e) => setModel({ ...model, course: e.target.value })}
-                label={"Courses"}
-                fullWidth
-                datasource={[
-                  {
-                    id: "Web And Mobile Application",
-                    displayname: "Web And Mobile Application",
-                  },
-                  {
-                    id: "Graphics Designing",
-                    displayname: "Graphics Designing",
-                  },
-                  {
-                    id: "Freelancing",
-                    displayname: "Freelancing",
-                  },
-                  {
-                    id: "Hacking",
-                    displayname: "Hacking",
-                  },
-                  {
-                    id: "Flutter",
-                    displayname: "Flutter",
-                  },
-                  {
-                    id: "Python",
-                    displayname: "Python",
-                  },
-                ]}
-              />
-            </Grid>
-            <Grid md={12} item>
-              <Box>
-                <table>
-                  {resultData.map((x, i) => (
-                    <tr>
-                      <td>{x.name}</td>
-                      <td>{x.rollno}</td>
-                      <td>{x.result}</td>
-                      <td>{x.marks}</td>
-                    </tr>
-                  ))}
-                </table>
-              </Box>
-            </Grid>
-            <Grid md={12} item>
-              <Button label={"Submit"} onClick={submitform} />
-            </Grid>
-          </Grid>
+  let showrollno = (e) => {
+    setSelectedCource(e);
+    let obj = data.find((x) => x.rollno == e);
+    console.log(obj);
+    setResultTableData([...obj.result]);
+  };
+  console.log(resultTableData);
+  return  (
+    <div>
+      <Navbar />
+      <div className="box">
+        <Box sx={{ p: 2, width: "80%" }}>
+          <Box >
+            <Typography variant="h3" sx={{ py: 1.5}} align="center">
+              Results
+            </Typography>
+            <Paper>
+            <Box
+              sx={{
+                p: 3,
+                borderRadius: "15px",
+              }}
+            >
+              <Grid container spacing={3}>
+                <Grid item md={6}>
+                  <DropDown
+                    label="Course"
+                    valueField="course"
+                    displayField="course"
+                    onChange={(e) => showResult(e.target.value)}
+                    datasource={data}
+                  />
+                </Grid>
+                <Grid item md={6}>
+                  <Input
+                    label="Enter Roll Number"
+                    onChange={(e) => showrollno(e.target.value)}
+                  />
+                </Grid>
+              </Grid>
+            </Box>
+            </Paper>
+            <Paper>
+            <Box
+              sx={{
+                p: 3,
+                borderRadius: "15px",
+                mt:7
+              }}
+            >
+              {resultTableData && resultTableData.length > 0 ? (
+                resultTableData.map((x, i) => (
+                  <tr key={i}>
+                    <td style={{padding:'0px,10px',margin:'2px'}}>{x.rollno}</td>
+                    <td style={{margin:'2px'}}>{x.name}</td>
+                    <td style={{margin:'2px'}}>{x.result}</td>
+                    <td style={{margin:'2px'}}>{x.marks}</td>
+                  </tr>
+                ))
+              ) : (
+                <Box
+                  style={{
+                    height: "50vh",
+                    display: "flex",
+                    justifyContentr: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <h1>No Result</h1>
+                </Box>
+              )}
+            </Box>
+            </Paper>
+          </Box>
         </Box>
-      </Box>
+      </div>
     </div>
   );
 }
 
-export default AdminResult;
+export default Result;

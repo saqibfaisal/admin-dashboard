@@ -2,8 +2,10 @@ import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { getData } from "../config/firebasemethod";
 import { useEffect, useState } from "react";
 import Navber from "../component/navber";
+import { useNavigate } from "react-router-dom";
 function Course() {
   const [data, setData] = useState([]);
+  let navigate = useNavigate();
   console.log(data);
   useEffect(() => {
     getData("Courses")
@@ -21,7 +23,7 @@ function Course() {
   <Box sx={{ p: 1.5 }}>
             <Grid container spacing={3}>
               {data.map((e) => (
-                <Grid item md={4}>
+                <Grid item md={4} onClick={()=>navigate("/quiz")}>
                   <Card sx={{ minWidth: 275 ,margin:5}}>
                     <CardContent sx={{display:"flex",justifyContent:"center",flexDirection:"column",alignItems:"center"}}>
                     <Typography variant="h6" align="center">{e.coursename}</Typography>

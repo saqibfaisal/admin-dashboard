@@ -17,11 +17,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import QuizIcon from "@mui/icons-material/Quiz";
-import FlagIcon from '@mui/icons-material/Flag';
+import FlagIcon from "@mui/icons-material/Flag";
 import DetailsIcon from "@mui/icons-material/Details";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import ApartmentIcon from '@mui/icons-material/Apartment';
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import Logout from "@mui/icons-material/Logout";
+import { Menu, MenuItem } from "@mui/material";
+import { Signout } from "../config/firebasemethod";
+// import { MenuItem } from '@mui/material/MenuItem';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -115,6 +119,12 @@ function Dashboard(props) {
   };
 
   const navigate = useNavigate();
+  const Log =()=>{
+    Signout()
+    .then(()=>{
+      navigate("/adminlogin")
+    }).catch((err)=>{console.log(err);})
+  }
 
   return (
     <div>
@@ -143,7 +153,8 @@ function Dashboard(props) {
             <Typography variant="h4" noWrap component="div">
               {heading}
             </Typography>
-            {/* <Box>
+
+            <Box>
               {auth && (
                 <div>
                   <IconButton
@@ -171,24 +182,16 @@ function Dashboard(props) {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem
-                      onClick={() => {
-                        navigate("profile");
-                      }}
-                    >
-                      Profile
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        navigate("myaccount");
-                      }}
-                    >
-                      My account
+                    <MenuItem  onClick={()=>Log()}>
+                      <ListItemIcon >
+                        <Logout fontSize="small"/>
+                      </ListItemIcon > 
+                      Logout
                     </MenuItem>
                   </Menu>
                 </div>
               )}
-            </Box> */}
+            </Box>
           </Toolbar>
         </AppBar>
         <Box>
@@ -408,10 +411,7 @@ function Dashboard(props) {
                   >
                     <ApartmentIcon color="primary" />
                   </ListItemIcon>
-                  <ListItemText
-                    primary="City"
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
+                  <ListItemText primary="City" sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
               </ListItem>
               {/* <Divider sx={{ backgroundColor: "#0277bd" }} /> */}

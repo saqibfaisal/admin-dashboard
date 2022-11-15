@@ -16,6 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import "../App.css";
 import {useNavigate } from "react-router-dom";
 import React from "react";
+import Profile from './../screen/profil';
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function Navbar(props) {
   //   const pages = ["Form", "Courses", "Blog"];
@@ -98,6 +99,7 @@ function Navbar(props) {
                 <MenuItem>
                   <Typography> Form </Typography>
                   <Typography> Courses </Typography>
+                  <Typography> Profile </Typography>
                 </MenuItem>
               </Menu>
             </Box>
@@ -140,11 +142,35 @@ function Navbar(props) {
                   color: "white",
                   display: "block",
                   fontWeight: "bold",
-                  pr: 45,
+                  pr: 5,
                 }}
                 onClick={()=>navigate("/course")}
               >
                 Courses
+              </Button>
+              <Button
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  fontWeight: "bold",
+                  pr: 5,
+                }}
+                onClick={()=>navigate("/profile")}
+              >
+                Profile
+              </Button>
+              <Button
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  fontWeight: "bold",
+                  pr: 5,
+                }}
+                onClick={()=>navigate("/result")}
+              >
+                Result
               </Button>
               {/* {pages.map((page) => (
                 <Button
